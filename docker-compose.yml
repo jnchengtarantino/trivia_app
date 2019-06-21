@@ -1,0 +1,28 @@
+version: '3'
+
+services:  
+  web:
+    depends_on:
+    - db
+    build: ./src
+    ports: 
+      - "5000:5000"
+    restart: always
+    volumes:
+      - ./src
+
+  db: 
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${USER}
+      - POSTGRES_PASSWORD=${PASSWORD}
+      - POSTGRES_DB=${DB}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+    
